@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prédictions</title>
+</head>
+<body>
+    <h1>Prédictions de souscription</h1>
+    <table border="1">
+        <tr>
+            <th>ID Client</th>
+            <th>Région</th>
+            <th>Prédiction</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.id_client }}</td>
+            <td>{{ row.region }}</td>
+            <td>{{ "Oui" if row.prediction_souscription == 1 else "Non" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rapport d'Analyse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Accueil</a>
+        <a href="#analysis">Analyse</a>
+    </div>
+
+    <div class="container">
+        <h1>📊 Rapport d'Analyse - Données Mobile</h1>
+        
+        <div class="card">
+            <h2>Métriques Clés</h2>
+            <table class="stats-table">
+                <tr>
+                    <th>Total Transactions</th>
+                    <th>Taux de Souscription</th>
+                    <th>Montant Moyen</th>
+                    <th>Fréquence Moyenne</th>
+                </tr>
+                <tr>
+                    <td>{{ report.rows }}</td>
+                    <td>{{ "%.2f"|format(report.subscription_rate * 100) if report.subscription_rate else 'N/A' }}%</td>
+                    <td>{{ "%.0f FCFA"|format(report.avg_amount) if report.avg_amount else 'N/A' }}</td>
+                    <td>{{ "%.1f"|format(report.avg_frequency) if report.avg_frequency else 'N/A' }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="chart-grid">
+            <div class="card">
+                <h2>📑 Transactions par Type</h2>
+                <img src="data:image/png;base64,{{ plot_urls.type_transaction }}" class="chart-img">
+            </div>
+
+            <div class="card">
+                <h2>🌍 Répartition par Région</h2>
+                <img src="data:image/png;base64,{{ plot_urls.region }}" class="chart-img">
+            </div>
+
+            <div class="card">
+                <h2>📅 Montants par Jour</h2>
+                <img src="data:image/png;base64,{{ plot_urls.daily_amount }}" class="chart-img">
+            </div>
+
+            <div class="card">
+                <h2>📈 Top 10 Clients</h2>
+                <img src="data:image/png;base64,{{ plot_urls.top_clients }}" class="chart-img">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔢 Fréquence par Type</h2>
+            <img src="data:image/png;base64,{{ plot_urls.freq_by_type }}" class="chart-img">
+        </div>
+
+        <a href="{{ url_for('predict', filename=filename) }}" class="btn">Prédire les Souscriptions →</a>
+    </div>
+</body>
+</html>
